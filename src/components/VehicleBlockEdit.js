@@ -21,7 +21,7 @@ import { useBlockProps } from "@wordpress/block-editor";
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function VehicleBlockEdit() {
 	return (
 		<p {...useBlockProps()}>
 			{__(

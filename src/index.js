@@ -17,8 +17,8 @@ import "./index.scss";
 /**
  * Internal dependencies
  */
-import Edit from "./components/VehicleBlockEdit";
-import save from "./components/VehicleBlockSave";
+import VehicleBlockEdit from "./components/VehicleBlockEdit";
+import VehicleBlockSave from "./components/VehicleBlockSave";
 import metadata from "./block.json";
 
 /**
@@ -28,12 +28,12 @@ import metadata from "./block.json";
  */
 registerBlockType(metadata.name, {
 	/**
-	 * @see ./edit.js
+	 * @see ./components/VehicleBlockEdit
 	 */
-	edit: Edit,
+	edit: VehicleBlockEdit,
 
 	/**
-	 * @see ./save.js
+	 * @see ./components/VehicleBlockSave
 	 */
-	save,
+	save: VehicleBlockSave,
 });

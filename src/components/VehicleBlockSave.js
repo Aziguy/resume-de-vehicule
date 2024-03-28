@@ -15,7 +15,7 @@ import { useBlockProps } from "@wordpress/block-editor";
  *
  * @return {Element} Element to render.
  */
-export default function save() {
+export default function VehicleBlockSave() {
 	return (
 		<p {...useBlockProps.save()}>
 			{"Resume Vehicule Block – hello from the saved content!"}
