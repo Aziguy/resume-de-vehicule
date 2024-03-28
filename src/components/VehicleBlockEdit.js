@@ -11,7 +11,7 @@ import { __ } from "@wordpress/i18n";
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-
+/*
 import { Fragment } from "@wordpress/element";
 import {
 	useBlockProps,
@@ -23,7 +23,7 @@ import { useSelect, useDispatch } from "@wordpress/data";
 import { PanelBody, SelectControl, Spinner } from "@wordpress/components";
 import { useInstanceId } from "@wordpress/compose";
 import { Component } from "@wordpress/element";
-import VehicleApi from "../Api/VehicleApi";
+import VehicleApi from "../Api/VehicleApi";*/
 
 /**
  * The VehicleBlockEdit class describes the structure of your block in the context of the
@@ -34,121 +34,79 @@ import VehicleApi from "../Api/VehicleApi";
  * @return {Element} Element to render.
  */
 
-const VehicleDetails = ({ selectedVehicle, vehicles }) => {
-	const vehicle = vehicles.find((v) => v.id === selectedVehicle);
+import { useState, useEffect } from "react";
+import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+import { PanelBody, SelectControl } from "@wordpress/components";
+import VehicleApi from "../Api/VehicleApi";
 
-	return (
-		<div>
-			{vehicle && (
-				<div>
-					<h2>
-						{vehicle.brand} {vehicle.model}
-					</h2>
-					<p>
-						<strong>Max Speed:</strong> {vehicle.maxSpeed}
-					</p>
-					<p>
-						<strong>Energy Source:</strong> {vehicle.energySource}
-					</p>
-					<p>
-						<strong>Dimensions:</strong>
-					</p>
-					<ul>
-						<li>Length: {vehicle.dimensions.length}</li>
-						<li>Width: {vehicle.dimensions.width}</li>
-						<li>Height: {vehicle.dimensions.height}</li>
-					</ul>
-					<p>
-						<strong>Pricing:</strong>
-					</p>
-					<ul>
-						<li>Base Price: {vehicle.pricing.basePrice}</li>
-						<li>Current Price: {vehicle.pricing.currentPrice}</li>
-					</ul>
-				</div>
-			)}
-		</div>
-	);
-};
-
-const VehicleSelector = ({
-	vehicles,
-	selectedVehicleId,
-	handleVehicleChange,
-}) => {
-	const vehicleOptions = vehicles
-		? [
-				{ label: "Liste des véhicules", value: "" },
-				...vehicles.map((vehicle) => ({
-					label: `${vehicle.brand} ${vehicle.model}`,
-					value: vehicle.id,
-				})),
-		  ]
-		: [];
-
-	return (
-		<InspectorControls>
-			<PanelBody title="Sélectionner un véhicule" icon="car" initialOpen={true}>
-				<SelectControl
-					label="Choisir le véhicule"
-					value={selectedVehicleId}
-					options={vehicleOptions}
-					onChange={handleVehicleChange}
-				/>
-			</PanelBody>
-		</InspectorControls>
-	);
-};
-
-const VehicleBlockEdit = () => {
+const VehicleBlockEdit = ({ attributes, setAttributes }) => {
+	const { vehicleId, numberOfVehicles } = attributes;
 	const [vehicles, setVehicles] = useState([]);
-	const [selectedVehicleId, setSelectedVehicleId] = useState("");
-	const [loading, setLoading] = useState(true);
+	const [vehicleDetails, setVehicleDetails] = useState(null);
 
 	useEffect(() => {
-		const fetchVehicles = async () => {
-			try {
-				const fetchedVehicles = await VehicleApi.getAllVehicles();
-				setVehicles(fetchedVehicles);
-				setLoading(false);
-			} catch (error) {
-				console.error("Error fetching vehicles:", error);
-			}
-		};
+		// We fetch vehicle data from API
+		VehicleApi.getAllVehicles()
+			.then((data) => {
+				setVehicles(data);
+			})
+			.catch((error) => {
+				console.error("Error fetching vehicle data:", error.message);
+			});
 
-		fetchVehicles();
-	}, []);
-
-	useEffect(() => {
-		const storedSelectedVehicleId = localStorage.getItem("selectedVehicleId");
-		if (storedSelectedVehicleId) {
-			setSelectedVehicleId(storedSelectedVehicleId);
+		// We fetch details of selected vehicle
+		if (vehicleId) {
+			VehicleApi.getVehicleById(vehicleId)
+				.then((data) => {
+					setVehicleDetails(data);
+				})
+				.catch((error) => {
+					console.error("Error fetching vehicle details:", error.message);
+				});
 		}
 	}, []);
 
-	const handleVehicleChange = (selectedVehicleId) => {
-		setSelectedVehicleId(selectedVehicleId);
-		localStorage.setItem("selectedVehicleId", selectedVehicleId);
+	const onSelectVehicle = (vehicleId) => {
+		setAttributes({ vehicleId });
+		VehicleApi.getVehicleById(vehicleId)
+			.then((data) => {
+				setVehicleDetails(data);
+			})
+			.catch((error) => {
+				console.error("Error fetching vehicle details:", error.message);
+			});
 	};
 
-	const blockProps = useBlockProps(); // Utiliser useBlockProps sans spécifier d'arguments
-
 	return (
-		<div {...blockProps}>
-			<VehicleSelector
-				vehicles={vehicles}
-				selectedVehicleId={selectedVehicleId}
-				handleVehicleChange={handleVehicleChange}
-			/>
-			{loading ? (
-				<Spinner />
-			) : (
-				<VehicleDetails
-					selectedVehicle={selectedVehicleId}
-					vehicles={vehicles}
-				/>
-			)}
-		</div>
+		<>
+			<InspectorControls>
+				<PanelBody title="Saabre block" icon="car" initialOpen={true}>
+					<SelectControl
+						label="Sélectionner un véhicule"
+						value={vehicleId || ""}
+						options={[
+							{ label: "Liste des véhicules", value: "" },
+							...vehicles.map((vehicle) => ({
+								label: `${vehicle.brand} ${vehicle.model}`,
+								value: vehicle.id.toString(),
+							})),
+						]}
+						onChange={onSelectVehicle}
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<div {...useBlockProps()}>
+				{vehicleDetails ? (
+					<div>
+						<h2>{`${vehicleDetails.data.brand} ${vehicleDetails.data.model}`}</h2>
+						<p>{`Vitesse max: ${vehicleDetails.data.maxSpeed} km/h`}</p>
+						<p>{`Source d'énergie: ${vehicleDetails.data.energySource}`}</p>
+					</div>
+				) : (
+					<p>Merci de bien vouloir sélectionner un véhicule dans la liste!</p>
+				)}
+			</div>
+		</>
 	);
 };
 
