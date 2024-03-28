@@ -11,19 +11,11 @@ import { __ } from "@wordpress/i18n";
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-/*
-import { Fragment } from "@wordpress/element";
-import {
-	useBlockProps,
-	InspectorControls,
-	getBlockProps,
-} from "@wordpress/block-editor";
-import { useState, useEffect } from "@wordpress/element";
-import { useSelect, useDispatch } from "@wordpress/data";
-import { PanelBody, SelectControl, Spinner } from "@wordpress/components";
-import { useInstanceId } from "@wordpress/compose";
-import { Component } from "@wordpress/element";
-import VehicleApi from "../Api/VehicleApi";*/
+import { useState, useEffect } from "react";
+import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+import VehicleApi from "../Api/VehicleApi";
+import VehicleSelector from "./Helpers/VehicleSelector";
+import VehicleDetails from "./Helpers/VehicleDetails";
 
 /**
  * The VehicleBlockEdit class describes the structure of your block in the context of the
@@ -33,11 +25,6 @@ import VehicleApi from "../Api/VehicleApi";*/
  *
  * @return {Element} Element to render.
  */
-
-import { useState, useEffect } from "react";
-import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
-import { PanelBody, SelectControl } from "@wordpress/components";
-import VehicleApi from "../Api/VehicleApi";
 
 const VehicleBlockEdit = ({ attributes, setAttributes }) => {
 	const { vehicleId, numberOfVehicles } = attributes;
@@ -80,28 +67,14 @@ const VehicleBlockEdit = ({ attributes, setAttributes }) => {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title="Saabre block" icon="car" initialOpen={true}>
-					<SelectControl
-						label="Sélectionner un véhicule"
-						value={vehicleId || ""}
-						options={[
-							{ label: "Liste des véhicules", value: "" },
-							...vehicles.map((vehicle) => ({
-								label: `${vehicle.brand} ${vehicle.model}`,
-								value: vehicle.id.toString(),
-							})),
-						]}
-						onChange={onSelectVehicle}
-					/>
-				</PanelBody>
+				<VehicleSelector
+					vehicles={vehicles}
+					onSelectVehicle={onSelectVehicle}
+				/>
 			</InspectorControls>
 			<div {...useBlockProps()}>
 				{vehicleDetails ? (
-					<div>
-						<h2>{`${vehicleDetails.data.brand} ${vehicleDetails.data.model}`}</h2>
-						<p>{`Vitesse max: ${vehicleDetails.data.maxSpeed} km/h`}</p>
-						<p>{`Source d'énergie: ${vehicleDetails.data.energySource}`}</p>
-					</div>
+					<VehicleDetails vehicleDetails={vehicleDetails} />
 				) : (
 					<p>Merci de bien vouloir sélectionner un véhicule dans la liste!</p>
 				)}

@@ -1,35 +1,20 @@
-import {
-	InspectorControls,
-	PanelBody,
-	SelectControl,
-} from "@wordpress/components";
+import { PanelBody, SelectControl } from "@wordpress/components";
 
-const VehicleSelector = ({
-	vehicles,
-	selectedVehicleId,
-	handleVehicleChange,
-}) => {
-	const vehicleOptions = vehicles
-		? [
-				{ label: "Liste des véhicules", value: "" },
-				...vehicles.map((vehicle) => ({
-					label: `${vehicle.brand} ${vehicle.model}`,
-					value: vehicle.id,
-				})),
-		  ]
-		: [];
-
+const VehicleSelector = ({ vehicles, onSelectVehicle }) => {
 	return (
-		<InspectorControls>
-			<PanelBody title="Sélectionner un véhicule" icon="car" initialOpen={true}>
-				<SelectControl
-					label="Choisir le véhicule"
-					value={selectedVehicleId}
-					options={vehicleOptions}
-					onChange={handleVehicleChange}
-				/>
-			</PanelBody>
-		</InspectorControls>
+		<PanelBody title="Sélectionner un véhicule" icon="car" initialOpen={true}>
+			<SelectControl
+				label="Choisir le véhicule"
+				options={[
+					{ label: "Liste des véhicules", value: "" },
+					...vehicles.map((vehicle) => ({
+						label: `${vehicle.brand} ${vehicle.model}`,
+						value: vehicle.id.toString(),
+					})),
+				]}
+				onChange={onSelectVehicle}
+			/>
+		</PanelBody>
 	);
 };
 
