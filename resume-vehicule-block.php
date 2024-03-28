@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: _Résumé de véhicule
+ * Plugin Name: Résumé de véhicule
  * Plugin URI: https://brakson.com/ 
  * Description: Affiche les caractéristiques techniques d'un véhicule depuis l'éditeur Gutenberg en se basant sur une base de données externe.
  * Version: 1.0.0
