@@ -13,13 +13,20 @@ import { __ } from "@wordpress/i18n";
  */
 
 import { Fragment } from "@wordpress/element";
-import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+import {
+	useBlockProps,
+	InspectorControls,
+	getBlockProps,
+} from "@wordpress/block-editor";
+import { useState, useEffect } from "@wordpress/element";
+import { useSelect, useDispatch } from "@wordpress/data";
 import { PanelBody, SelectControl, Spinner } from "@wordpress/components";
+import { useInstanceId } from "@wordpress/compose";
 import { Component } from "@wordpress/element";
 import VehicleApi from "../Api/VehicleApi";
 
 /**
- * The edit function describes the structure of your block in the context of the
+ * The VehicleBlockEdit class describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
@@ -27,57 +34,122 @@ import VehicleApi from "../Api/VehicleApi";
  * @return {Element} Element to render.
  */
 
-class VehicleBlockEdit extends Component {
-	constructor() {
-		super(...arguments);
-		this.state = {
-			vehicles: [],
-			selectedVehicleId: "",
-			isLoading: true,
+const VehicleDetails = ({ selectedVehicle, vehicles }) => {
+	const vehicle = vehicles.find((v) => v.id === selectedVehicle);
+
+	return (
+		<div>
+			{vehicle && (
+				<div>
+					<h2>
+						{vehicle.brand} {vehicle.model}
+					</h2>
+					<p>
+						<strong>Max Speed:</strong> {vehicle.maxSpeed}
+					</p>
+					<p>
+						<strong>Energy Source:</strong> {vehicle.energySource}
+					</p>
+					<p>
+						<strong>Dimensions:</strong>
+					</p>
+					<ul>
+						<li>Length: {vehicle.dimensions.length}</li>
+						<li>Width: {vehicle.dimensions.width}</li>
+						<li>Height: {vehicle.dimensions.height}</li>
+					</ul>
+					<p>
+						<strong>Pricing:</strong>
+					</p>
+					<ul>
+						<li>Base Price: {vehicle.pricing.basePrice}</li>
+						<li>Current Price: {vehicle.pricing.currentPrice}</li>
+					</ul>
+				</div>
+			)}
+		</div>
+	);
+};
+
+const VehicleSelector = ({
+	vehicles,
+	selectedVehicleId,
+	handleVehicleChange,
+}) => {
+	const vehicleOptions = vehicles
+		? [
+				{ label: "Liste des véhicules", value: "" },
+				...vehicles.map((vehicle) => ({
+					label: `${vehicle.brand} ${vehicle.model}`,
+					value: vehicle.id,
+				})),
+		  ]
+		: [];
+
+	return (
+		<InspectorControls>
+			<PanelBody title="Sélectionner un véhicule" icon="car" initialOpen={true}>
+				<SelectControl
+					label="Choisir le véhicule"
+					value={selectedVehicleId}
+					options={vehicleOptions}
+					onChange={handleVehicleChange}
+				/>
+			</PanelBody>
+		</InspectorControls>
+	);
+};
+
+const VehicleBlockEdit = () => {
+	const [vehicles, setVehicles] = useState([]);
+	const [selectedVehicleId, setSelectedVehicleId] = useState("");
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		const fetchVehicles = async () => {
+			try {
+				const fetchedVehicles = await VehicleApi.getAllVehicles();
+				setVehicles(fetchedVehicles);
+				setLoading(false);
+			} catch (error) {
+				console.error("Error fetching vehicles:", error);
+			}
 		};
-		this.getVehicles();
-	}
 
-	async getVehicles() {
-		try {
-			const vehicles = await VehicleApi.getAllVehicles();
-			this.setState({ vehicles, isLoading: false });
-		} catch (error) {
-			console.error("Error fetching vehicles:", error);
-			// Gérer les erreurs de manière appropriée
+		fetchVehicles();
+	}, []);
+
+	useEffect(() => {
+		const storedSelectedVehicleId = localStorage.getItem("selectedVehicleId");
+		if (storedSelectedVehicleId) {
+			setSelectedVehicleId(storedSelectedVehicleId);
 		}
-	}
+	}, []);
 
-	render() {
-		const { vehicles, selectedVehicleId, isLoading } = this.state;
+	const handleVehicleChange = (selectedVehicleId) => {
+		setSelectedVehicleId(selectedVehicleId);
+		localStorage.setItem("selectedVehicleId", selectedVehicleId);
+	};
 
-		if (isLoading) {
-			return <Spinner />;
-		}
+	const blockProps = useBlockProps(); // Utiliser useBlockProps sans spécifier d'arguments
 
-		return (
-			<div>
-				<InspectorControls>
-					<PanelBody
-						title="Sélectionner un véhicule"
-						icon="car"
-						initialOpen={true}
-					>
-						<SelectControl
-							label="Choisir un véhicule"
-							value={selectedVehicleId}
-							options={vehicles.map((vehicle) => ({
-								label: `${vehicle.brand} ${vehicle.model}`,
-								value: vehicle.id,
-							}))}
-							onChange={(value) => this.setState({ selectedVehicleId: value })}
-						/>
-					</PanelBody>
-				</InspectorControls>
-				<div>Nous ajouterons d'autres éléments de contenu du bloc ici...</div>
-			</div>
-		);
-	}
-}
+	return (
+		<div {...blockProps}>
+			<VehicleSelector
+				vehicles={vehicles}
+				selectedVehicleId={selectedVehicleId}
+				handleVehicleChange={handleVehicleChange}
+			/>
+			{loading ? (
+				<Spinner />
+			) : (
+				<VehicleDetails
+					selectedVehicle={selectedVehicleId}
+					vehicles={vehicles}
+				/>
+			)}
+		</div>
+	);
+};
 
 export default VehicleBlockEdit;
