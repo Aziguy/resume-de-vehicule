@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "brakson/resume-vehicule",
+  "version": "0.1.0",
+  "title": "Résumé de véhicule",
+  "category": "brakson-category",
+  "icon": "car",
+  "description": "Affiche les caractéristiques techniques d'un véhicule depuis l'éditeur Gutenberg.",
+  "attributes": {
+    "vehicleId": {
+      "type": "string",
+      "default": ""
+    },
+    "numberOfVehicles": {
+      "type": "number",
+      "default": 10
+    }
+  },
+  "example": {
+    "attributes": {
+      "vehicleId": "9d8d69a6-74e0-4f46-b7cc-8796ed151a05",
+      "numberOfVehicles": 5
+    }
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "anchor": true,
+    "html": false
+  },
+  "keywords": [
+    "véhicule",
+    "caractéristiques techniques",
+    "éditeur Gutenberg",
+    "journalistes",
+    "base de données externe",
+    "contenus WordPress",
+    "bloc Gutenberg",
+    "WordPress",
+    "plugin",
+    "extension"
+  ],
+  "textdomain": "resume-vehicule-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}
