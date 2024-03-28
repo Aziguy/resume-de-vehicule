@@ -1,15 +1,19 @@
-const VehicleDetails = ({ vehicleDetails }) => {
-	// We format the price
-	const basePrice = parseFloat(vehicleDetails.data.pricing.basePrice);
-	const currentPrice = parseFloat(vehicleDetails.data.pricing.currentPrice);
+import React from "react";
 
+const VehicleDetails = ({ vehicleDetails }) => {
+	const { data } = vehicleDetails;
+
+	// Formatage du prix
 	const formatPrice = (price) => {
 		return price
 			.toFixed(2)
 			.replace(/\d(?=(\d{3})+\.)/g, "$& ")
 			.replace(".00", "");
 	};
-	// Determine classes based on conditions
+
+	// Détermination des classes en fonction des conditions
+	const basePrice = parseFloat(data.pricing.basePrice);
+	const currentPrice = parseFloat(data.pricing.currentPrice);
 	const basePriceClasses =
 		basePrice && currentPrice ? "text-black-600 line-through mr-2" : "";
 	const currentPriceClasses =
@@ -18,47 +22,43 @@ const VehicleDetails = ({ vehicleDetails }) => {
 				? "text-xl font-bold text-green-600"
 				: "text-xl font-bold text-red-600"
 			: "";
-	// Checking if start_date is null
-	const isCommercialized =
-		vehicleDetails.data.commercializationDates.start != null;
-	const dateObject = new Date(vehicleDetails.data.lastUpdated);
-	// Format options for the date
-	const options = { day: "2-digit", month: "long", year: "numeric" };
 
-	// Convert date to formatted string
-	const formattedDate = new Intl.DateTimeFormat("fr-FR", options).format(
-		dateObject,
-	);
+	// Vérification si la date de début de commercialisation est null
+	const isCommercialized = data.commercializationDates.start != null;
+
+	// Formatage de la date
+	const formattedDate = new Intl.DateTimeFormat("fr-FR", {
+		day: "2-digit",
+		month: "long",
+		year: "numeric",
+	}).format(new Date(data.lastUpdated));
 
 	return (
-		<div class="container mx-auto flex flex-col items-center justify-center">
-			<div class="bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 flex flex-col md:flex-row">
-				<div class="w-full md:w-3/4">
-					<h3 class="text-xl font-bold mb-4 text-green-600">
+		<div className="container mx-auto flex flex-col items-center justify-center">
+			<div className="bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 flex flex-col md:flex-row">
+				<div className="w-full md:w-3/4">
+					<h3 className="text-xl font-bold mb-4 text-green-600">
 						Caractéristiques principales
 					</h3>
-					<div class="flex items-center justify-between mb-4">
+					<div className="flex items-center justify-between mb-4">
 						<img
 							src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/527.jpg"
-							alt="Image de la voiture"
-							class="w-full md:w-1/2 rounded-t-lg md:rounded-l-lg"
+							alt={`${data.brand} ${data.model}`}
+							className="w-full md:w-1/2 rounded-t-lg md:rounded-l-lg"
 						/>
-						<div class="flex flex-col ml-4">
-							<ul class="list-disc mb-4">
-								<li class="mb-2 flex items-center">
+						<div className="flex flex-col ml-4">
+							<ul className="list-disc mb-4">
+								<li className="mb-2 flex items-center">
 									{basePrice && currentPrice && (
 										<span className={basePriceClasses}>
 											{formatPrice(basePrice)} €
 										</span>
 									)}
-									{/* We display current price with conditional color */}
 									<span className={currentPriceClasses}>
 										{formatPrice(currentPrice)} €
 									</span>
 								</li>
-								<li class="mb-2 flex items-center">
-									{/* We display "Commercialisé" if start date is null */}
-
+								<li className="mb-2 flex items-center">
 									{isCommercialized ? (
 										<span className="border border-green-600 text-green-600 px-2 py-1 rounded inline-block align-middle">
 											Commercialisé
@@ -70,49 +70,42 @@ const VehicleDetails = ({ vehicleDetails }) => {
 									)}
 								</li>
 							</ul>
-							<ul class="list-disc">
-								<li class="mb-2 flex items-center">
-									<span class="font-bold ">
-										Marque : {vehicleDetails.data.brand}
-									</span>
-									<hr className="border-gray-300 my-2" />
+							<ul className="list-disc">
+								<li className="mb-2 flex items-center">
+									Marque : <span className="font-bold"> {data.brand}</span>
 								</li>
-								<li class="mb-2 flex items-center">
-									<span class="font-bold">
-										Modèle : {vehicleDetails.data.model}
-									</span>
+								<li className="mb-2 flex items-center">
+									Modèle : <span className="font-bold"> {data.model}</span>
 								</li>
-								<li class="mb-2 flex items-center">
-									<span class="font-bold">
-										Source d'nergie : {vehicleDetails.data.energySource}
-									</span>
+								<li className="mb-2 flex items-center">
+									Source d'énergie :
+									<span className="font-bold">{data.energySource}</span>
 								</li>
-								<li class="mb-2 flex items-center">
-									<span class="font-bold">
-										Vitesse max : {vehicleDetails.data.maxSpeed} km/h
-									</span>
+								<li className="mb-2 flex items-center">
+									Vitesse max :{" "}
+									<span className="font-bold">{data.maxSpeed} km/h</span>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="bg-gray-800 text-white w-full md:w-1/4 p-4">
-					<h3 class="text-xl font-bold mb-4">Dimensions</h3>
-					<ul class="list-disc">
-						<li class="mb-2 flex items-center">
+				<div className="bg-gray-800 text-white w-full md:w-1/4 p-4">
+					<h3 className="text-xl font-bold mb-4">Dimensions</h3>
+					<ul className="list-disc">
+						<li className="mb-2 flex items-center">
 							<span>Longueur : </span>
-							<span>{vehicleDetails.data.dimensions.length}</span>
+							<span>{data.dimensions.length}</span>
 						</li>
-						<li class="mb-2 flex items-center">
+						<li className="mb-2 flex items-center">
 							<span>Largeur : </span>
-							<span>{vehicleDetails.data.dimensions.width}</span>
+							<span>{data.dimensions.width}</span>
 						</li>
-						<li class="mb-2 flex items-center">
+						<li className="mb-2 flex items-center">
 							<span>Hauteur : </span>
-							<span>{vehicleDetails.data.dimensions.height}</span>
+							<span>{data.dimensions.height}</span>
 						</li>
 					</ul>
-					<hr class="my-4" />
+					<hr className="my-4 border-gray-600" />
 					<p>Dernière mise à jour : {formattedDate}</p>
 				</div>
 			</div>
