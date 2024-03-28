@@ -1,9 +1,15 @@
 === Vehicle Summary Block ===
+
 Contributors: Aziguy
+
 Tags: block, Gutenberg, vehicle
+
 Tested up to: 6.4.3
+
 Stable tag: 0.1.0
+
 License: GPL-2.0-or-later
+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin adds a Gutenberg block to display technical specifications of a vehicle.
