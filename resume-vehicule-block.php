@@ -34,13 +34,18 @@ class Resume_Vehicule_Block {
     public function __construct() {
         add_action( 'init', array( $this, 'register_block' ) );
         add_filter( 'block_categories_all', array( $this, 'register_block_category' ), 10, 2 );
+
+        // Enqueue block assets
+        add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
     }
 
     /**
-     * Register of our block.
+     * Register our block.
      */
     public function register_block() {
-        register_block_type( __DIR__ . '/build' );
+        register_block_type( 'brakson/resume-vehicule', array(
+            'editor_script' => 'brakson-resume-vehicule-block-editor',
+        ) );
     }
 
     /**
@@ -55,7 +60,19 @@ class Resume_Vehicule_Block {
 
         return $categories;
     }
+
+    /**
+     * Enqueue block assets.
+     */
+    public function enqueue_block_assets() {
+        wp_enqueue_style(
+            'brakson-resume-vehicule-block-css',
+            plugin_dir_url( __FILE__ ) . 'build/index.css',
+            array(),
+            filemtime( plugin_dir_path( __FILE__ ) . 'build/index.css' )
+        );
+    }
 }
 
-// We instantiate our class.
+// Instantiate our class.
 $resume_vehicule_block = new Resume_Vehicule_Block();
