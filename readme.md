@@ -36,7 +36,7 @@ Once activated, you can utilize the "Vehicle Summary" block within the Gutenberg
 This project utilizes Tailwind CSS for style management. To compile CSS files, execute the following command:
 
 ```bash
-npm run build:css
+npm run build
 ```
 
 This command compiles the `tailwind.css` file located in the `src/assets/css` directory into a `style.css` file within the `build` directory.
@@ -67,6 +67,36 @@ If you encounter any issues or have questions regarding the usage of this plugin
 ## === Contributions ===
 
 Contributions are welcome! If you'd like to contribute to the improvement of this plugin, please submit a pull request on [GitHub](https://github.com/Aziguy/resume-de-vehicule).
+
+## === Development Setup ===
+
+To continue development on this Gutenberg block, follow these steps:
+
+1. Clone the repository from [GitHub](https://github.com/Aziguy/resume-de-vehicule).
+2. Navigate to the project directory in your terminal.
+3. Run `npm install` to install the project dependencies.
+4. Use `npm start` to start the development .
+5. Make changes to the block code as needed. The block files are located in the `src` directory.
+6. After making changes, use `npm run build` to compile the CSS and JavaScript files. This will update the `build` directory with the latest changes.
+7. Test your changes within the WordPress editor to ensure everything works as expected.
+8. Commit your changes and push them.
+9. If you would like to contribute your changes to the main repository, submit a pull request on GitHub.
+
+By following these steps, you can easily continue development on this Gutenberg block and contribute improvements to our amazing ( ͡° ͜ʖ ͡° )resume-vehicule block.
+
+## === Future Improvements ===
+
+While the current version of the Vehicle Summary Gutenberg block provides essential functionality, there are several areas for potential improvement and enhancement:
+
+1. **Automated Testing with GitHub Actions:** Implement automated end-to-end (E2E) tests using the `@wordpress/e2e-test-utils` package and GitHub Actions.
+
+2. **Customization Options for Administrators:** Allow administrators (journalists) to customize the appearance of the block by providing options for changing colors, typography, and other styling attributes. This can be achieved through additional block setting attributes.o
+
+3. **Enhanced Vehicle Selection:** Instead of using a dropdown selector, provide a more user-friendly interface for selecting vehicles. For example, implement a search field where users can enter the name or model of the vehicle they want to display. This will improve the user experience and make it easier to find specific vehicles, especially in cases where the list of vehicles is extensive.
+
+4. **Block Content Reordering:** Enable users to rearrange the elements within the block according to their preferences. Implement drag-and-drop functionality or other intuitive interfaces that allow for easy reordering of content elements. This flexibility will empower users to structure the block layout in a way that best suits their needs.
+
+By incorporating these enhancements, we can further improve the functionality, usability, and versatility of the Vehicle Summary Gutenberg block, providing a more robust solution for displaying vehicle information within the WordPress editor. With all that in place, I'm sure that our block could be ready for production. ( ͡° ͜ʖ ͡° )
 
 ## === License ===
 
