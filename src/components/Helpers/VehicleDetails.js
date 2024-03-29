@@ -1,4 +1,4 @@
-import React from "react";
+import { FiTrendingUp, FiTrendingDown } from "react-icons/fi";
 
 const VehicleDetails = ({ vehicleDetails }) => {
 	const { data } = vehicleDetails;
@@ -14,6 +14,7 @@ const VehicleDetails = ({ vehicleDetails }) => {
 	// Determine classes based on conditions
 	const basePrice = parseFloat(data.pricing.basePrice);
 	const currentPrice = parseFloat(data.pricing.currentPrice);
+	const priceDifference = currentPrice - basePrice;
 	const basePriceClasses =
 		basePrice && currentPrice ? "text-black-600 line-through mr-2" : "";
 	const currentPriceClasses =
@@ -22,9 +23,10 @@ const VehicleDetails = ({ vehicleDetails }) => {
 				? "text-xl font-bold text-green-600"
 				: "text-xl font-bold text-red-600"
 			: "";
+	const arrowIcon = priceDifference < 0 ? <FiTrendingDown /> : <FiTrendingUp />;
 
-	// Checking if start_date is null
-	const isCommercialized = data.commercializationDates.start != null;
+	// Checking if commercializationDates.end exists
+	const isCommercialized = data.commercializationDates.end;
 
 	// We format the date
 	const formattedDate = new Intl.DateTimeFormat("fr-FR", {
@@ -55,17 +57,17 @@ const VehicleDetails = ({ vehicleDetails }) => {
 										</span>
 									)}
 									<span className={currentPriceClasses}>
-										{formatPrice(currentPrice)} €
+										{formatPrice(currentPrice)} € {arrowIcon}
 									</span>
 								</li>
 								<li className="mb-2 flex items-center">
 									{isCommercialized ? (
-										<span className="border border-green-600 text-green-600 px-2 py-1 rounded inline-block align-middle">
-											Commercialisé
-										</span>
-									) : (
 										<span className="bg-gray-400 text-white px-2 py-1 rounded inline-block align-middle">
 											Non commercialisé
+										</span>
+									) : (
+										<span className="border border-green-600 text-green-600 px-2 py-1 rounded inline-block align-middle">
+											Commercialisé
 										</span>
 									)}
 								</li>
@@ -74,13 +76,16 @@ const VehicleDetails = ({ vehicleDetails }) => {
 								<li className="mb-2 flex items-center">
 									Marque : <span className="font-bold"> {data.brand}</span>
 								</li>
+								<hr className="my-2 border-gray-400" />
 								<li className="mb-2 flex items-center">
 									Modèle : <span className="font-bold"> {data.model}</span>
 								</li>
+								<hr className="my-2 border-gray-400" />
 								<li className="mb-2 flex items-center">
 									Source d'énergie :
 									<span className="font-bold">{data.energySource}</span>
 								</li>
+								<hr className="my-2 border-gray-400" />
 								<li className="mb-2 flex items-center">
 									Vitesse max :{" "}
 									<span className="font-bold">{data.maxSpeed} km/h</span>

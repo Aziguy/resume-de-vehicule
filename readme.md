@@ -103,10 +103,10 @@ By incorporating these enhancements, we can further improve the functionality, u
 Below are screenshots demonstrating the Vehicle Summary Gutenberg block in action within the WordPress editor:
 
 1. **Block from editor:**  
-   ![Block editor](screenshots/block-from-editor.png)
+   ![Block editor](src/screenshots/block-from-editor.png)
 
 2. **Block from front-End:**  
-   ![Front-End](screenshots/block-frontend.png)
+   ![Front-End](src/screenshots/block-frontend.png)
 
 These screenshots showcase the appearance and functionality of the block, illustrating how vehicle information is displayed and how users interact with the block within the Gutenberg editor.
 

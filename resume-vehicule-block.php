@@ -40,12 +40,10 @@ class Resume_Vehicule_Block {
     }
 
     /**
-     * Register our block.
+     * Register of our block.
      */
     public function register_block() {
-        register_block_type( 'brakson/resume-vehicule', array(
-            'editor_script' => 'brakson-resume-vehicule-block-editor',
-        ) );
+        register_block_type( __DIR__ . '/build' );
     }
 
     /**
