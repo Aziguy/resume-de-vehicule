@@ -12,6 +12,10 @@
       "type": "string",
       "default": ""
     },
+    "vehicleDetails": {
+      "type": "object",
+      "default": null
+    },
     "numberOfVehicles": {
       "type": "number",
       "default": 10

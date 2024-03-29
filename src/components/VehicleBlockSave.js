@@ -22,9 +22,7 @@ const VehicleBlockSave = ({ attributes }) => {
 
 	return (
 		<div {...useBlockProps.save()}>
-			{vehicleId && vehicleDetails && (
-				<VehicleDetails vehicleDetails={vehicleDetails} />
-			)}
+			{vehicleDetails && <VehicleDetails vehicleDetails={vehicleDetails} />}
 		</div>
 	);
 };

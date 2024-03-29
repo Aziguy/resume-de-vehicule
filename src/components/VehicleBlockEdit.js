@@ -54,9 +54,10 @@ const VehicleBlockEdit = ({ attributes, setAttributes }) => {
 	}, []);
 
 	const onSelectVehicle = (vehicleId) => {
-		setAttributes({ vehicleId });
 		VehicleApi.getVehicleById(vehicleId)
 			.then((data) => {
+				setAttributes({ vehicleId, vehicleDetails: data });
+
 				setVehicleDetails(data);
 			})
 			.catch((error) => {
