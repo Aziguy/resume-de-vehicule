@@ -1,48 +1,73 @@
-=== Vehicle Summary Block ===
+### === Vehicle Summary Gutenberg Block ===
 
-Contributors: Aziguy
+**Contributors:** Aziguy, F7b5
+**Tags:** block, Gutenberg, vehicle  
+**Tested up to:** 6.4.3  
+**Stable tag:** 0.1.0  
+**License:** GPL-2.0-or-later  
+**License URI:** [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
 
-Tags: block, Gutenberg, vehicle
+This WordPress plugin enables the display of technical specifications for vehicles directly within the Gutenberg editor. Leveraging an external database, it seamlessly retrieves and showcases this information.
 
-Tested up to: 6.4.3
+## === Features ===
 
-Stable tag: 0.1.0
+- Display vehicle technical specifications within the Gutenberg editor.
+- Integration of a new Gutenberg block named "Vehicle Summary".
+- Customization options for block appearance and displayed information.
+- Addition of a new Gutenberg block category named "Brakson Gutenberg blocks".
 
-License: GPL-2.0-or-later
+## === Requirements ===
 
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+- WordPress version 6.4.3 or later.
+- PHP version 7.0 or later.
 
-This plugin adds a Gutenberg block to display technical specifications of a vehicle.
+## === Installation ===
 
-== Description ==
+1. Download the plugin from [the plugin's URL on the Brakson website](https://brakson.com/).
+2. Upload the ZIP file to your WordPress installation.
+3. Activate the plugin through the WordPress "Plugins" page.
 
-The Vehicle Summary Block allows users to display technical specifications of a vehicle directly within the Gutenberg editor. Journalists and content creators can easily select a vehicle from a list and preview its details. This block integrates with an external API to fetch vehicle information.
+## === Usage ===
 
-== Installation ==
+Once activated, you can utilize the "Vehicle Summary" block within the Gutenberg editor. Customize the displayed information according to the external database utilized.
 
-1. Upload the plugin files to the `/wp-content/plugins/vehicle-summary-block` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress.
+## === Tailwind Configuration ===
 
-== Screenshots ==
+This project utilizes Tailwind CSS for style management. To compile CSS files, execute the following command:
 
-1. This screenshot shows the Vehicle Summary Block in action, displaying vehicle specifications.
-2. Another screenshot showcasing the block's functionality.
+```bash
+npm run build:css
+```
 
-== Changelog ==
+This command compiles the `tailwind.css` file located in the `src/assets/css` directory into a `style.css` file within the `build` directory.
 
-= 1.0.0 =
+## === npm Dependencies ===
 
-- Initial release
+This project uses npm for dependency management. Below are the project's devDependencies:
 
-== Frequently Asked Questions ==
+- `@wordpress/scripts`: WordPress script collection for development.
+- `autoprefixer`: PostCSS tool for automatically adding CSS browser prefixes.
+- `postcss`: CSS post-processing tool.
+- `tailwindcss`: Utility-first CSS framework.
 
-= How do I use the Vehicle Summary Block? =
+And here are the project's dependencies:
 
-1. Add the Vehicle Summary Block to your post or page.
-2. Select a vehicle from the list in the block settings.
-3. Preview and publish your content.
+- `@wordpress/block-editor`: WordPress block editor module.
+- `@wordpress/blocks`: API for registering and managing WordPress blocks.
+- `@wordpress/components`: WordPress UI components.
+- `@wordpress/compose`: Library for creating functional React components in WordPress.
+- `@wordpress/data`: Data management in WordPress applications.
+- `@wordpress/element`: API for creating React elements in WordPress.
+- `axios`: Promise-based HTTP client for browsers and node.js.
 
-== Upgrade Notice ==
+## === Support ===
 
-= 1.0.0 =
-Initial release of the Vehicle Summary Block plugin.
+If you encounter any issues or have questions regarding the usage of this plugin, please [contact us](https://www.saabre.com/).
+
+## === Contributions ===
+
+Contributions are welcome! If you'd like to contribute to the improvement of this plugin, please submit a pull request on [GitHub](https://github.com/Aziguy/resume-de-vehicule).
+
+## === License ===
+
+This plugin is distributed under the [GPL-2.0-or-later](https://www.gnu.org/licenses/gpl-2.0.html) license. Refer to the LICENSE file for more details.

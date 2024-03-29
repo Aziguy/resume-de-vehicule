@@ -76,7 +76,9 @@ const VehicleBlockEdit = ({ attributes, setAttributes }) => {
 				{vehicleDetails ? (
 					<VehicleDetails vehicleDetails={vehicleDetails} />
 				) : (
-					<p>Merci de bien vouloir sélectionner un véhicule dans la liste!</p>
+					<div>
+						Merci de bien vouloir sélectionner un véhicule dans la liste!
+					</div>
 				)}
 			</div>
 		</>

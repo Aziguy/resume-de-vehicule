@@ -5,6 +5,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps } from "@wordpress/block-editor";
+import VehicleDetails from "./Helpers/VehicleDetails";
 
 /**
  * The save function defines the way in which the different attributes should
@@ -15,10 +16,17 @@ import { useBlockProps } from "@wordpress/block-editor";
  *
  * @return {Element} Element to render.
  */
-export default function VehicleBlockSave() {
+
+const VehicleBlockSave = ({ attributes }) => {
+	const { vehicleId, vehicleDetails } = attributes;
+
 	return (
-		<p {...useBlockProps.save()}>
-			{"Resume Vehicule Block – hello from the saved content!"}
-		</p>
+		<div {...useBlockProps.save()}>
+			{vehicleId && vehicleDetails && (
+				<VehicleDetails vehicleDetails={vehicleDetails} />
+			)}
+		</div>
 	);
-}
+};
+
+export default VehicleBlockSave;

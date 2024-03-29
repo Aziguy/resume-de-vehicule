@@ -3,7 +3,7 @@ import React from "react";
 const VehicleDetails = ({ vehicleDetails }) => {
 	const { data } = vehicleDetails;
 
-	// Formatage du prix
+	// We format the price
 	const formatPrice = (price) => {
 		return price
 			.toFixed(2)
@@ -11,7 +11,7 @@ const VehicleDetails = ({ vehicleDetails }) => {
 			.replace(".00", "");
 	};
 
-	// Détermination des classes en fonction des conditions
+	// Determine classes based on conditions
 	const basePrice = parseFloat(data.pricing.basePrice);
 	const currentPrice = parseFloat(data.pricing.currentPrice);
 	const basePriceClasses =
@@ -23,10 +23,10 @@ const VehicleDetails = ({ vehicleDetails }) => {
 				: "text-xl font-bold text-red-600"
 			: "";
 
-	// Vérification si la date de début de commercialisation est null
+	// Checking if start_date is null
 	const isCommercialized = data.commercializationDates.start != null;
 
-	// Formatage de la date
+	// We format the date
 	const formattedDate = new Intl.DateTimeFormat("fr-FR", {
 		day: "2-digit",
 		month: "long",
