@@ -20,10 +20,15 @@ const VehicleDetails = ({ vehicleDetails }) => {
 	const currentPriceClasses =
 		basePrice && currentPrice
 			? basePrice > currentPrice
-				? "text-xl font-bold text-green-600"
-				: "text-xl font-bold text-red-600"
+				? "font-bold text-green-600"
+				: "font-bold text-red-600"
 			: "";
-	const arrowIcon = priceDifference < 0 ? <FiTrendingDown /> : <FiTrendingUp />;
+	const arrowIcon =
+		priceDifference < 0 ? (
+			<FiTrendingDown className="h-5 w-5 flex-shrink-0 text-green-600" />
+		) : (
+			<FiTrendingUp className="h-5 w-5 flex-shrink-0 text-red-600" />
+		);
 
 	// Checking if commercializationDates.end exists
 	const isCommercialized = data.commercializationDates.end;
@@ -35,83 +40,126 @@ const VehicleDetails = ({ vehicleDetails }) => {
 		year: "numeric",
 	}).format(new Date(data.lastUpdated));
 
+	// We convert from mm to m round to 1 decimal
+	const convertMillimetersToMeters = (mm) => {
+		const meters = mm / 1000;
+		const roundedMeters = Math.round(meters * 10) / 10;
+		return new Intl.NumberFormat("fr-FR", {
+			maximumFractionDigits: 1,
+		}).format(roundedMeters);
+	};
+
 	return (
-		<div className="container mx-auto flex flex-col items-center justify-center">
-			<div className="bg-white border-2 border-gray-200 rounded-lg shadow-lg p-4 flex flex-col md:flex-row">
-				<div className="w-full md:w-3/4">
-					<h3 className="text-xl font-bold mb-4 text-green-600">
+		<div className="inline-flex w-full flex-row items-start bg-zinc-100 pl-6 tracking-[0px] rounded-lg shadow-lg">
+			<div className="flex flex-grow flex-wrap items-center justify-center gap-x-5 gap-y-5 self-stretch min-[710px]:flex-nowrap">
+				<div className="flex h-[25rem] w-[34rem] flex-shrink-0 flex-col items-center justify-center gap-y-6">
+					<div className="font-barlow_condensed flex items-center self-stretch px-1.5 text-left text-2xl font-bold leading-9 text-lime-500 mt-8">
 						Caractéristiques principales
-					</h3>
-					<div className="flex items-center justify-between mb-4">
+					</div>
+					<div className="font-helvetica flex flex-grow items-start justify-center gap-x-12 self-stretch">
 						<img
-							src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/527.jpg"
+							className="h-32 w-48 flex-shrink-0 rounded-xl object-cover object-center mix-blend-normal m-auto"
+							src="https://www.dreamcarsevents.com/wp-content/uploads/kisspng-car-renault-seat-len-seat-ibiza-renault-clio-iv-5b19ec60d69f96.4549975915284255688791.png"
 							alt={`${data.brand} ${data.model}`}
-							className="w-full md:w-1/2 rounded-t-lg md:rounded-l-lg"
 						/>
-						<div className="flex flex-col ml-4">
-							<ul className="list-disc mb-4">
-								<li className="mb-2 flex items-center">
-									{basePrice && currentPrice && (
-										<span className={basePriceClasses}>
-											{formatPrice(basePrice)} €
+						<div className="flex flex-col items-center justify-center gap-y-1 self-stretch">
+							<div className="flex flex-col items-center justify-center gap-y-1 self-stretch pr-[3px]">
+								<ul className="list-disc mb-4">
+									<li className="mb-2 flex items-center">
+										{basePrice && currentPrice && (
+											<span className={basePriceClasses}>
+												{formatPrice(basePrice)} €
+											</span>
+										)}
+										<span className={currentPriceClasses}>
+											{formatPrice(currentPrice)} €
 										</span>
-									)}
-									<span className={currentPriceClasses}>
-										{formatPrice(currentPrice)} € {arrowIcon}
+										{"  "}
+										{arrowIcon}
+									</li>
+									<li className="mb-2 flex items-center">
+										{isCommercialized ? (
+											<span className="bg-gray-400 text-white px-2 py-1 rounded inline-block align-middle">
+												Non commercialisé
+											</span>
+										) : (
+											<span className="border border-green-600 text-green-600 px-2 py-1 rounded inline-block align-middle">
+												Commercialisé
+											</span>
+										)}
+									</li>
+								</ul>
+
+								<div className="flex items-end self-stretch pt-1 text-left text-base leading-6 border-b border-gray-300 py-1">
+									<span>
+										<span className="font-normal text-zinc-600">Marque : </span>
+										<span className="font-bold text-zinc-950">
+											{data.brand}
+										</span>
 									</span>
-								</li>
-								<li className="mb-2 flex items-center">
-									{isCommercialized ? (
-										<span className="bg-gray-400 text-white px-2 py-1 rounded inline-block align-middle">
-											Non commercialisé
+								</div>
+
+								<div className="flex items-end self-stretch pt-1 text-left text-base leading-6 border-b border-gray-300 py-1">
+									<span>
+										<span className="font-normal text-zinc-600">Modèle : </span>
+										<span className="font-bold text-zinc-950">
+											{data.model}
 										</span>
-									) : (
-										<span className="border border-green-600 text-green-600 px-2 py-1 rounded inline-block align-middle">
-											Commercialisé
+									</span>
+								</div>
+							</div>
+							<div className="flex flex-col items-center justify-center gap-y-1 self-stretch text-base leading-6">
+								<div className="flex flex-col items-start justify-center gap-y-2 self-stretch text-center">
+									<div className="flex justify-center self-stretch">
+										<span className="border-b border-gray-300 py-1">
+											<span className="font-normal text-zinc-600">
+												Source d'énergie :{" "}
+											</span>
+											<span className="font-bold text-zinc-950  ">
+												{data.energySource}
+											</span>
 										</span>
-									)}
-								</li>
-							</ul>
-							<ul className="list-disc">
-								<li className="mb-2 flex items-center">
-									Marque : <span className="font-bold"> {data.brand}</span>
-								</li>
-								<hr className="my-2 border-gray-400" />
-								<li className="mb-2 flex items-center">
-									Modèle : <span className="font-bold"> {data.model}</span>
-								</li>
-								<hr className="my-2 border-gray-400" />
-								<li className="mb-2 flex items-center">
-									Source d'énergie :
-									<span className="font-bold">{data.energySource}</span>
-								</li>
-								<hr className="my-2 border-gray-400" />
-								<li className="mb-2 flex items-center">
-									Vitesse max :{" "}
-									<span className="font-bold">{data.maxSpeed} km/h</span>
-								</li>
-							</ul>
+									</div>
+								</div>
+								<div className="flex flex-col items-start justify-center gap-y-2 self-stretch text-left">
+									<div>
+										<span className="font-normal text-zinc-600">
+											Vitesse max :{" "}
+										</span>
+										<span className="font-bold text-zinc-950">
+											{data.maxSpeed} km/h
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="bg-gray-800 text-white w-full md:w-1/4 p-4">
-					<h3 className="text-xl font-bold mb-4">Dimensions</h3>
-					<ul className="list-disc">
-						<li className="mb-2 flex items-center">
-							<span>Longueur : </span>
-							<span>{data.dimensions.length}</span>
-						</li>
-						<li className="mb-2 flex items-center">
-							<span>Largeur : </span>
-							<span>{data.dimensions.width}</span>
-						</li>
-						<li className="mb-2 flex items-center">
-							<span>Hauteur : </span>
-							<span>{data.dimensions.height}</span>
-						</li>
-					</ul>
-					<hr className="my-4 border-gray-600" />
-					<p>Dernière mise à jour : {formattedDate}</p>
+				<div className="font-helvetica flex w-60 flex-shrink-0 flex-col items-start justify-end gap-y-3 self-stretch bg-zinc-800 px-6 py-14 text-left font-normal">
+					<div className="w-48 text-base leading-6">
+						<span className="text-zinc-400">
+							Dimensions :
+							<br />
+						</span>
+						<span className="text-white">
+							Longueur : {convertMillimetersToMeters(data.dimensions.length)} m
+							<br />
+						</span>
+						<span className="text-white">
+							Largeur : {convertMillimetersToMeters(data.dimensions.width)} m
+							<br />
+						</span>
+						<span className="text-white">
+							Hauteur : {convertMillimetersToMeters(data.dimensions.height)} m
+							<br />
+						</span>
+					</div>
+
+					<hr class="border-gray-400 font-bold my-4" />
+
+					<div className="self-stretch text-sm leading-5 text-zinc-400 ">
+						Dernière mise à jour faite le {formattedDate}
+					</div>
 				</div>
 			</div>
 		</div>
