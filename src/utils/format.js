@@ -25,9 +25,12 @@ export function formatNumber( value, decimals = 0 ) {
 		return '';
 	}
 
-	const [ integer, fraction ] = Math.abs( value )
-		.toFixed( decimals )
-		.split( '.' );
+	const rounded = Number(
+		`${ Math.round(
+			`${ Math.abs( value ) }e${ decimals }`
+		) }e-${ decimals }`
+	);
+	const [ integer, fraction ] = rounded.toFixed( decimals ).split( '.' );
 	const grouped = integer.replace( /\B(?=(\d{3})+(?!\d))/g, ' ' );
 	const sign = value < 0 ? '-' : '';
 
