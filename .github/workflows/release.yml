@@ -19,7 +19,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run plugin-zip
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: resume-vehicule-block.zip
           generate_release_notes: true
