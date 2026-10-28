@@ -28,16 +28,31 @@
 		"node": ">=18"
 	},
 	"main": "build/index.js",
+	"files": [
+		"build",
+		"includes",
+		"resume-vehicule-block.php",
+		"uninstall.php",
+		"readme.txt",
+		"LICENSE"
+	],
 	"scripts": {
 		"build": "wp-scripts build",
+		"start": "wp-scripts start",
 		"format": "wp-scripts format",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
+		"lint": "npm run lint:js && npm run lint:css",
+		"lint:css": "wp-scripts lint-style \"src/**/*.scss\"",
+		"lint:js": "wp-scripts lint-js src tests/js",
+		"test": "wp-scripts test-unit-js --config jest.config.js",
+		"test:coverage": "wp-scripts test-unit-js --config jest.config.js --coverage",
+		"test:php": "composer test",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start"
+		"plugin-zip": "wp-scripts plugin-zip"
 	},
 	"devDependencies": {
+		"@testing-library/jest-dom": "^6.4.2",
+		"@testing-library/react": "^14.3.1",
+		"@testing-library/user-event": "^14.5.2",
 		"@wordpress/scripts": "^27.5.0",
 		"autoprefixer": "^10.4.19",
 		"postcss": "^8.4.38",
