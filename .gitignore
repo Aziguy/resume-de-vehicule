@@ -37,3 +37,6 @@ vendor/
 .idea/
 .vscode/
 .DS_Store
+
+# Composer lock: tests run on several PHP versions
+composer.lock

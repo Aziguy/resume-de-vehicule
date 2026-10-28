@@ -12,7 +12,7 @@ use ResumeVehicule\Providers\ProviderRegistry;
 /**
  * Stores options and renders the settings page.
  */
-final class Settings {
+class Settings {
 
 	const OPTION = 'resume_vehicule_settings';
 	const PAGE   = 'resume-vehicule';

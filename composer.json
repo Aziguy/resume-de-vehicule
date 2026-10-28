@@ -1,0 +1,36 @@
+{
+	"name": "aziguy/resume-de-vehicule",
+	"description": "Bloc Gutenberg affichant les caractéristiques techniques d'un véhicule.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Hippolyte KENGNI",
+			"homepage": "https://aziguy.github.io/Portfolio-Website/"
+		}
+	],
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"brain/monkey": "^2.6",
+		"phpunit/phpunit": "^9.6"
+	},
+	"autoload": {
+		"psr-4": {
+			"ResumeVehicule\\": "includes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"ResumeVehicule\\Tests\\": "tests/php/"
+		}
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"scripts": {
+		"test": "phpunit",
+		"test:coverage": "phpunit --coverage-clover coverage/php/clover.xml --coverage-text"
+	}
+}
