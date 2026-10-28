@@ -1,0 +1,13 @@
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 2%
+flags:
+  js:
+    paths: [src/]
+    carryforward: true
+  php:
+    paths: [includes/]
+    carryforward: true
