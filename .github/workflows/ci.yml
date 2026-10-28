@@ -23,7 +23,7 @@ jobs:
       - run: npm run lint
       - run: npm run test:coverage
       - run: npm run build
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v7
         with:
           files: coverage/js/lcov.info
           flags: js
@@ -50,7 +50,7 @@ jobs:
       - if: matrix.php == '8.3'
         run: composer test:coverage
       - if: matrix.php == '8.3'
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           files: coverage/php/clover.xml
           flags: php
