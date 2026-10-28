@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  js:
+    name: JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test:coverage
+      - run: npm run build
+      - uses: codecov/codecov-action@v5
+        with:
+          files: coverage/js/lcov.info
+          flags: js
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
+  php:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: ${{ matrix.php == '8.3' && 'pcov' || 'none' }}
+      - run: find . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l
+      - run: composer update --no-interaction --no-progress --prefer-dist
+      - if: matrix.php != '8.3'
+        run: composer test
+      - if: matrix.php == '8.3'
+        run: composer test:coverage
+      - if: matrix.php == '8.3'
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage/php/clover.xml
+          flags: php
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false

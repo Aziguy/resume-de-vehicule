@@ -28,3 +28,15 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# PHP
+vendor/
+.phpunit.result.cache
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+
+# Composer lock: tests run on several PHP versions
+composer.lock
