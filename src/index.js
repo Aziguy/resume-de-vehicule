@@ -7,4 +7,4 @@ import deprecated from './deprecated';
 import Edit from './edit';
 import save from './save';
 
-registerBlockType( metadata.name, { edit: Edit, save, deprecated } );
+registerBlockType( metadata, { edit: Edit, save, deprecated } );
