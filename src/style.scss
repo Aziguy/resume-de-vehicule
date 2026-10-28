@@ -1,0 +1,15 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Minimal reset scoped to the block, Tailwind preflight being disabled. */
+
+.wp-block-brakson-resume-vehicule {
+
+	*,
+	::before,
+	::after {
+		box-sizing: border-box;
+		border: 0 solid #e5e7eb;
+	}
+}
