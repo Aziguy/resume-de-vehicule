@@ -15,7 +15,18 @@
 		"extension"
 	],
 	"author": "Hippolyte KENGNI",
-	"license": "ISC",
+	"license": "GPL-2.0-or-later",
+	"homepage": "https://github.com/Aziguy/resume-de-vehicule#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Aziguy/resume-de-vehicule.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Aziguy/resume-de-vehicule/issues"
+	},
+	"engines": {
+		"node": ">=18"
+	},
 	"main": "build/index.js",
 	"scripts": {
 		"build": "wp-scripts build",
@@ -24,8 +35,7 @@
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start",
-		"build:css": "npx tailwindcss -i ./src/assets/css/tailwind.css -o ./build/style.css"
+		"start": "wp-scripts start"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^27.5.0",
