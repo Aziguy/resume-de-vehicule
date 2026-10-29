@@ -4,7 +4,7 @@
  * Plugin URI:        https://github.com/Aziguy/resume-de-vehicule
  * Description:       Bloc Gutenberg affichant les caractéristiques techniques d'un véhicule issues d'une source de données externe.
  * Version:           1.1.0
- * Requires at least: 6.4
+ * Requires at least: 6.6
  * Requires PHP:      7.4
  * Author:            Hippolyte KENGNI
  * Author URI:        https://aziguy.github.io/Portfolio-Website/

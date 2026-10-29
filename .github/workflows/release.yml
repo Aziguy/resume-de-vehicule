@@ -3,6 +3,15 @@ name: Release
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to create, e.g. v1.2.0
+        required: true
+      ref:
+        description: Commit, branch or tag to release
+        required: true
+        default: master
 
 permissions:
   contents: write
@@ -11,15 +20,21 @@ jobs:
   zip:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
         with:
-          node-version: 20
+          ref: ${{ inputs.ref || github.ref }}
+      - id: sha
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
           cache: npm
       - run: npm ci
       - run: npm run build
       - run: npm run plugin-zip
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
+          tag_name: ${{ inputs.tag || github.ref_name }}
+          target_commitish: ${{ steps.sha.outputs.sha }}
           files: resume-vehicule-block.zip
           generate_release_notes: true

@@ -37,4 +37,4 @@ Créer une classe dans `includes/Providers/` qui implémente `ProviderInterface`
 
 1. Mettre à jour la version dans `resume-vehicule-block.php`, `src/block.json`, `package.json`, `readme.txt` et `CHANGELOG.md`.
 2. `npm run build` puis commit.
-3. Créer un tag `vX.Y.Z` : le workflow *Release* publie l'archive.
+3. Lancer le workflow *Release* (onglet Actions, *Run workflow*) avec le tag `vX.Y.Z` et la référence à publier, ou pousser le tag : le workflow crée la release et y joint l'archive.
