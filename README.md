@@ -28,13 +28,13 @@ Permettre aux rédactions d'insérer en quelques clics une fiche technique clair
 
 - Bloc **Résumé de véhicule** dans une catégorie dédiée « Brakson Gutenberg blocks ».
 - Recherche avec autocomplétion (marque, modèle) directement dans le bloc ou dans la barre latérale.
-- Carte responsive : n'affiche que les informations disponibles, tendance du prix, badge de commercialisation, source citée.
+- Fiche responsive au design futuriste (néon, verre, jauges) : n'affiche que les informations disponibles, variation du prix, badge de commercialisation, source citée.
 - Bouton **Actualiser les données** dans la barre d'outils du bloc.
 - **Sources de données interchangeables** depuis *Réglages > Résumé de véhicule* :
   - `saabre` : API historique du projet ;
   - `ademe` : open data public [ADEME Car Labelling](https://data.ademe.fr/datasets/ademe-car-labelling) (Licence Ouverte 2.0), sans clé d'API.
 - Proxy REST côté serveur (`/wp-json/resume-vehicule/v1/vehicles`) avec cache configurable : pas d'appel tiers depuis le navigateur, pas de souci CORS, moins de requêtes.
-- Migration automatique des blocs enregistrés avec la version 1.0.
+- Migration automatique des blocs enregistrés avec les versions précédentes.
 - Styles Tailwind isolés dans le bloc : aucun impact sur le thème ni sur l'éditeur.
 
 ## Captures

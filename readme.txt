@@ -4,7 +4,7 @@ Tags: block, gutenberg, vehicle, car, automobile
 Requires at least: 6.6
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,11 @@ Les requêtes passent par un proxy REST interne avec cache.
 3. Choisir la source dans Réglages > Résumé de véhicule.
 
 == Changelog ==
+
+= 1.2.0 =
+* Nouvelle fiche au design futuriste : bordure néon animée, tuiles en verre, jauges de dimensions, variation du prix en pourcentage.
+* Libellés ADEME en casse de phrase.
+* WordPress 6.6 minimum, dépendances à jour.
 
 = 1.1.0 =
 * Sources de données interchangeables (Saabre, ADEME).

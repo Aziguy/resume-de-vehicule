@@ -3,7 +3,7 @@
  * Plugin Name:       Résumé de véhicule
  * Plugin URI:        https://github.com/Aziguy/resume-de-vehicule
  * Description:       Bloc Gutenberg affichant les caractéristiques techniques d'un véhicule issues d'une source de données externe.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Requires at least: 6.6
  * Requires PHP:      7.4
  * Author:            Hippolyte KENGNI
@@ -20,7 +20,7 @@ namespace ResumeVehicule;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION     = '1.1.0';
+const VERSION     = '1.2.0';
 const PLUGIN_FILE = __FILE__;
 
 require_once __DIR__ . '/includes/autoload.php';
