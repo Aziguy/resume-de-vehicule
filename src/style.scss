@@ -13,3 +13,35 @@
 		border: 0 solid #e5e7eb;
 	}
 }
+
+.wp-block-brakson-resume-vehicule .rv-card {
+	background-size: 200% 200%;
+	animation: rv-border-shift 10s ease-in-out infinite;
+}
+
+.wp-block-brakson-resume-vehicule .rv-grid {
+	background-image:
+		linear-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+	background-size: 28px 28px;
+	mask-image: radial-gradient(ellipse at top right, #000 20%, transparent 75%);
+}
+
+@keyframes rv-border-shift {
+
+	0%,
+	100% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.wp-block-brakson-resume-vehicule .rv-card {
+		animation: none;
+	}
+}
