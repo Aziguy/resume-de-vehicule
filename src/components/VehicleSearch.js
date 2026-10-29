@@ -45,7 +45,7 @@ export default function VehicleSearch( { value, onSelect } ) {
 						: __(
 								'Saisissez une marque ou un modèle.',
 								'resume-vehicule-block'
-						  )
+							)
 				}
 				value={ value?.id ?? null }
 				options={ options }
