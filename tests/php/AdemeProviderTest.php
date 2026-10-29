@@ -44,9 +44,9 @@ class AdemeProviderTest extends TestCase {
 		$this->assertSame( 'RENAULT', $vehicle['brand'] );
 		$this->assertSame( 'KANGOO', $vehicle['model'] );
 		$this->assertSame( 'KANGOO (130ch)', $vehicle['version'] );
-		$this->assertSame( 'ESSENCE', $vehicle['energy'] );
-		$this->assertSame( 'COMBISPACE', $vehicle['body'] );
-		$this->assertSame( 'AUTOMATIQUE', $vehicle['gearbox'] );
+		$this->assertSame( 'Essence', $vehicle['energy'] );
+		$this->assertSame( 'Combispace', $vehicle['body'] );
+		$this->assertSame( 'Automatique', $vehicle['gearbox'] );
 		$this->assertSame( 131, $vehicle['power'] );
 		$this->assertSame( 1519, $vehicle['weight'] );
 		$this->assertSame( 178.0, $vehicle['co2'] );

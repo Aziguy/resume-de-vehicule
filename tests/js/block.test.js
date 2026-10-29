@@ -12,7 +12,12 @@ import metadata from '../../src/block.json';
 import deprecated from '../../src/deprecated';
 import { legacyDetails, vehicle } from './fixtures';
 
-const [ v1 ] = deprecated;
+const [ v11, v1 ] = deprecated;
+
+const wrap = ( attributes, content ) =>
+	`<!-- wp:${ metadata.name } ${ JSON.stringify(
+		attributes
+	) } -->\n${ content }\n<!-- /wp:${ metadata.name } -->`;
 
 describe( 'resume-vehicule block', () => {
 	beforeAll( () => {
@@ -46,6 +51,21 @@ describe( 'resume-vehicule block', () => {
 
 		expect( html ).toContain( 'wp-block-brakson-resume-vehicule' );
 		expect( parse( html )[ 0 ].isValid ).toBe( true );
+	} );
+
+	it( 'upgrades content saved by version 1.1', () => {
+		const attributes = { vehicleId: vehicle.id, vehicle };
+		const [ block ] = parse(
+			wrap(
+				attributes,
+				getSaveContent( { ...v11, name: metadata.name }, attributes )
+			)
+		);
+
+		expect( block.isValid ).toBe( true );
+		expect( block.attributes.vehicle ).toEqual( vehicle );
+		expect( serialize( block ) ).toContain( 'rv-card' );
+		expect( console ).toHaveInformed();
 	} );
 
 	it( 'migrates content saved by version 1.0', () => {

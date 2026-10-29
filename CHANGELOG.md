@@ -2,9 +2,16 @@
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions selon [SemVer](https://semver.org/lang/fr/).
 
-## [Non publié]
+## [1.2.0] - 2026-10-29
+
+### Ajouté
+
+- Fiche véhicule repensée : thème sombre, bordure néon animée (désactivée si l'utilisateur limite les animations), grille et halos lumineux, tuiles de caractéristiques avec icônes, jauges de dimensions, variation du prix en pourcentage.
+- Migration automatique des blocs enregistrés avec la fiche 1.1.
 
 ### Modifié
+
+- Libellés ADEME (énergie, carrosserie, boîte) affichés en casse de phrase.
 
 - WordPress 6.6 minimum (runtime JSX requis par `@wordpress/scripts` 37).
 - Dépendances à jour : paquets WordPress, `@wordpress/scripts` 37, Jest 30, Testing Library, actions GitHub.

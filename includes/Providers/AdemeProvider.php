@@ -88,9 +88,9 @@ class AdemeProvider implements ProviderInterface {
 				'brand'          => $row['marque'] ?? null,
 				'model'          => $row['modele'] ?? $row['libellemodele'] ?? null,
 				'version'        => $row['descriptioncommerciale'] ?? null,
-				'energy'         => $row['energie'] ?? null,
-				'body'           => $row['carrosserie'] ?? null,
-				'gearbox'        => $row['typedeboite'] ?? null,
+				'energy'         => self::sentence( $row['energie'] ?? null ),
+				'body'           => self::sentence( $row['carrosserie'] ?? null ),
+				'gearbox'        => self::sentence( $row['typedeboite'] ?? null ),
 				'power'          => $kw ? (int) round( $kw * self::KW_TO_HP ) : null,
 				'weight'         => $row['poidsavide'] ?? null,
 				'co2'            => $co2 ? round( $co2 ) : null,
@@ -110,6 +110,26 @@ class AdemeProvider implements ProviderInterface {
 		$lines = isset( $body['results'] ) && is_array( $body['results'] ) ? $body['results'] : array();
 
 		return array_values( array_map( array( $this, 'map' ), array_filter( $lines, 'is_array' ) ) );
+	}
+
+	/**
+	 * "COMBISPACE" becomes "Combispace".
+	 *
+	 * @param mixed $value Raw value.
+	 * @return mixed
+	 */
+	private static function sentence( $value ) {
+		if ( ! is_string( $value ) || '' === trim( $value ) ) {
+			return $value;
+		}
+
+		if ( ! function_exists( 'mb_strtolower' ) ) {
+			return ucfirst( strtolower( trim( $value ) ) );
+		}
+
+		$value = mb_strtolower( trim( $value ), 'UTF-8' );
+
+		return mb_strtoupper( mb_substr( $value, 0, 1, 'UTF-8' ), 'UTF-8' ) . mb_substr( $value, 1, null, 'UTF-8' );
 	}
 
 	/**
