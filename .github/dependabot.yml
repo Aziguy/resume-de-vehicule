@@ -4,14 +4,29 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    open-pull-requests-limit: 5
     groups:
       wordpress:
         patterns: ['@wordpress/*']
+      testing:
+        patterns: ['jest*', '@testing-library/*', 'babel-jest']
+      tooling:
+        dependency-type: development
+        update-types: [minor, patch]
+      runtime:
+        dependency-type: production
+        update-types: [minor, patch]
   - package-ecosystem: composer
     directory: /
     schedule:
       interval: monthly
+    groups:
+      php:
+        patterns: ['*']
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
+    groups:
+      actions:
+        patterns: ['*']
