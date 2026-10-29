@@ -72,3 +72,36 @@ export function priceTrend( { base, current } = {} ) {
 
 	return current < base ? 'down' : 'up';
 }
+
+/**
+ * Returns the signed price variation, e.g. "-3,1 %".
+ *
+ * @param {Object} price         Vehicle price.
+ * @param {number} price.base    Catalog price.
+ * @param {number} price.current Current price.
+ * @return {string} Formatted variation or an empty string.
+ */
+export function priceVariation( { base, current } = {} ) {
+	if ( ! priceTrend( { base, current } ) || base === 0 ) {
+		return '';
+	}
+
+	const variation = ( ( current - base ) / base ) * 100;
+
+	return `${ variation > 0 ? '+' : '' }${ formatNumber( variation, 1 ) } %`;
+}
+
+/**
+ * Returns value / max as a whole percentage clamped between 4 and 100.
+ *
+ * @param {number} value Measured value.
+ * @param {number} max   Reference value.
+ * @return {number} Percentage, 0 when unknown.
+ */
+export function ratio( value, max ) {
+	if ( ! isNumber( value ) || ! isNumber( max ) || max <= 0 ) {
+		return 0;
+	}
+
+	return Math.min( 100, Math.max( 4, Math.round( ( value / max ) * 100 ) ) );
+}

@@ -4,6 +4,8 @@ import {
 	formatPrice,
 	millimetersToMeters,
 	priceTrend,
+	priceVariation,
+	ratio,
 } from '../../src/utils/format';
 
 describe( 'formatNumber', () => {
@@ -76,5 +78,35 @@ describe( 'priceTrend', () => {
 		expect( priceTrend( { base: 18000, current: 18000 } ) ).toBeNull();
 		expect( priceTrend( { current: 18000 } ) ).toBeNull();
 		expect( priceTrend() ).toBeNull();
+	} );
+} );
+
+describe( 'priceVariation', () => {
+	it( 'formats signed percentages', () => {
+		expect( priceVariation( { base: 19500, current: 18900 } ) ).toBe(
+			'-3,1 %'
+		);
+		expect( priceVariation( { base: 18000, current: 19000 } ) ).toBe(
+			'+5,6 %'
+		);
+	} );
+
+	it( 'returns an empty string without comparison', () => {
+		expect( priceVariation( { base: 0, current: 10 } ) ).toBe( '' );
+		expect( priceVariation( { current: 10 } ) ).toBe( '' );
+		expect( priceVariation() ).toBe( '' );
+	} );
+} );
+
+describe( 'ratio', () => {
+	it( 'returns a clamped percentage', () => {
+		expect( ratio( 4050, 5500 ) ).toBe( 74 );
+		expect( ratio( 9000, 5500 ) ).toBe( 100 );
+		expect( ratio( 10, 5500 ) ).toBe( 4 );
+	} );
+
+	it( 'returns 0 for unknown values', () => {
+		expect( ratio( null, 5500 ) ).toBe( 0 );
+		expect( ratio( 10, 0 ) ).toBe( 0 );
 	} );
 } );
