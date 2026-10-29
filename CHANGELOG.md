@@ -2,6 +2,16 @@
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions selon [SemVer](https://semver.org/lang/fr/).
 
+## [Non publié]
+
+### Modifié
+
+- WordPress 6.6 minimum (runtime JSX requis par `@wordpress/scripts` 37).
+- Dépendances à jour : paquets WordPress, `@wordpress/scripts` 37, Jest 30, Testing Library, actions GitHub.
+- ESLint en configuration « flat », directives `@tailwind` à la place des `@import` Sass dépréciés.
+- Release déclenchable manuellement depuis l'onglet Actions.
+- Mises à jour Dependabot regroupées.
+
 ## [1.1.0] - 2026-10-28
 
 ### Ajouté
