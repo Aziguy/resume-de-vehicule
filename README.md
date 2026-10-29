@@ -9,7 +9,7 @@
 [![Licence GPL v2+](https://img.shields.io/badge/licence-GPL--2.0--or--later-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/github/package-json/v/Aziguy/resume-de-vehicule?label=version)](CHANGELOG.md)
 
-[![WordPress 6.4+](https://img.shields.io/badge/WordPress-6.4%2B-21759B?logo=wordpress&logoColor=white)](https://wordpress.org/)
+[![WordPress 6.6+](https://img.shields.io/badge/WordPress-6.6%2B-21759B?logo=wordpress&logoColor=white)](https://wordpress.org/)
 [![PHP 7.4+](https://img.shields.io/badge/PHP-7.4%2B-777BB4?logo=php&logoColor=white)](https://www.php.net/)
 [![React 18](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Tailwind CSS 3](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
@@ -45,7 +45,7 @@ Permettre aux rédactions d'insérer en quelques clics une fiche technique clair
 
 ## Prérequis
 
-- WordPress 6.4 ou plus
+- WordPress 6.6 ou plus
 - PHP 7.4 ou plus
 
 ## Installation
