@@ -58,7 +58,7 @@
 		"@wordpress/jest-preset-default": "^14.2.0",
 		"@wordpress/scripts": "^37.0.0",
 		"autoprefixer": "^10.6.1",
-		"globals": "^16.5.0",
+		"globals": "^17.13.0",
 		"jest": "^30.5.2",
 		"jest-environment-jsdom": "^30.5.2",
 		"postcss": "^8.4.38",
