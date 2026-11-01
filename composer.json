@@ -14,7 +14,7 @@
 	},
 	"require-dev": {
 		"brain/monkey": "^2.6",
-		"phpunit/phpunit": "^9.6"
+		"phpunit/phpunit": "^13.4"
 	},
 	"autoload": {
 		"psr-4": {
